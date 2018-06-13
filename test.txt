@@ -1,0 +1,32 @@
+{ "name" : "iap_restart", "enabled": "true"}
+
+public static void logChannelInfo() {
+        if (ContextCompat.checkSelfPermission(App.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            String root = android.os.Environment.getExternalStorageDirectory().toString();
+            File myDir = new File(root + "/ATP");
+            if (!myDir.exists()) {
+                myDir.mkdirs();
+            }
+
+            String fname = "channel_info.txt";
+            File file = new File (myDir, fname);
+            //if (file.exists ())
+            //file.delete ();
+            try {
+                FileOutputStream out = new FileOutputStream(file);
+                String string = "Test data";
+                //out.write(string.getBytes());
+                out.flush();
+                out.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            //ActivityCompat.requestPermissions(App.getContext(),
+                   // new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+            Mlog.d(TAG, "Run time permission");
+
+        }
+
+    }
